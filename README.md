@@ -51,7 +51,7 @@ friendly warning (no popup, no crash).
 2. Enable all three in the game's **Mods** list (the original must stay enabled).
 3. Restart the game. Load this fixed version after the two required items.
 
-Steam Workshop: *published alongside v1.0.0 — link will be added here after the first upload.*
+Steam Workshop: <https://steamcommunity.com/sharedfiles/filedetails/?id=3828601227>
 
 ## Build
 

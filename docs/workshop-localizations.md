@@ -26,18 +26,11 @@ This mod keeps exactly the same look and re-implements the feature with clean co
 [list][*]Load this mod after HarmonyLoadMod and after the original BetterAccessoryDisplay. A freshly installed mod loads last by default, so usually there is nothing to do.
 [*]If you sort mods manually, keep both required mods above this one. (As a safety net, this mod also loads 0Harmony.dll by itself when needed.)[/list]
 
-[h2]◆ What you see[/h2]
-[list][*]Every weapon shows all six attachment slots: Scope / Muzzle / Grip / Stock / Tec / Mag.
-[*]A slot with an attachment installed shows a white content indicator.
-[*]Slots the weapon does not have are still shown, marked gray.
-[*]Weapons you have not inspected yet keep their slots hidden, same as the original's current behaviour.
-[*]No settings and no extra UI: subscribe, enable, restart the game and you are done.[/list]
-
-[h2]◆ What this fix changes[/h2]
-[list][*]Logging is hard-off: one startup line from this mod, nothing per refresh. (The original's own 6 one-time lines — 3 at startup, 3 at shutdown — remain because it stays enabled; they cannot be removed from this side.)
-[*]Reflection members that the original looked up on every refresh are resolved once and cached statically.
-[*]Slot indicators are rebuilt only when they actually need to be, instead of releasing and recreating all six on every Refresh.
-[*]If a future game update changes the internal members, the mod stays inactive and prints a single warning — no spam, no crash.[/list]
+[h2]◆ What's fixed · What you get[/h2]
+[list][*]Log spam is gone: the original wrote about 48 debug lines on every slot refresh — one measured 3 h 23 min session reached 484,156 lines / 34.75 MB, 85.68% of all log lines and 89.19% of the log size. This version writes 0 lines while playing, and the original itself now only contributes its 6 one-time lines (3 at startup + 3 at shutdown). Browsing the backpack, storage or shops no longer keeps writing to disk, so Player.log stays small and much easier to diagnose.
+[*]Lighter refreshes: the original cleared and rebuilt all six slot indicators on every Refresh. This version rebuilds only when it actually has to, and reflection members are looked up once at startup and cached — the repeated work is gone.
+[*]Same visuals: every weapon still shows six attachment slots (white dot = attachment installed, gray dot = a slot the weapon does not have), and uninspected weapons still show no slots — identical to the original v1.1.
+[*]A safety net: if a future game update changes the internal members, this mod simply stays inactive and logs one warning — no spam, no crash.[/list]
 
 [h2]◆ Compatibility[/h2]
 [list][*]Game version: Escape from Duckov 2.3.30. Other versions are untested.
@@ -81,18 +74,11 @@ locale tag: zh-CN
 [list][*]请让本 mod 排在 HarmonyLoadMod 和原版 BetterAccessoryDisplay 之后。新装的 mod 默认排在最后，通常不需要手动调整。
 [*]如果手动排序，把两个前置放在本 mod 上面即可。（本 mod 需要时也会自己加载 0Harmony.dll，作为兜底。）[/list]
 
-[h2]◆ 现在看起来怎么样[/h2]
-[list][*]所有武器都显示 6 个配件槽：瞄具 / 枪口 / 握把 / 枪托 / 战术 / 弹匣。
-[*]槽里装了配件时，内容指示器显示为白色。
-[*]武器本身没有的槽位也会显示出来，用灰色标记。
-[*]还没搜索（检视）过的武器不显示配件槽，和原版目前的行为一致。
-[*]没有设置项、没有新界面：订阅、启用、重启游戏即可。[/list]
-
-[h2]◆ 本版修复了什么[/h2]
-[list][*]日志写死关闭：本 mod 启动只留 1 行日志，不再按刷新刷屏。（原版自己的一次性启动/退出日志共 6 行：3 行启动 + 3 行退出；因为原版保持启用，这些日志仍然存在，这一侧无法消除。）
-[*]反射成员改为一次解析、静态缓存，不再每次刷新都重新查找。
-[*]槽位指示器只在需要时重建，不再每次 Refresh 都清空并重建全部 6 个。
-[*]如果将来游戏更新改了内部成员，本 mod 会保持不生效并只留一条警告，不会刷屏、也不会崩溃。[/list]
+[h2]◆ 修复了什么 · 你能得到什么[/h2]
+[list][*]日志刷屏归零：原版每次槽位刷新都写约 48 行调试日志——实测一次 3 小时 23 分钟的会话共 484,156 行 / 34.75 MB，占全部日志行数的 85.68%、体积的 89.19%。本版运行期 0 行，原版自身也只剩 3 行启动 + 3 行退出共 6 行一次性日志；反复翻背包、仓库、商店不再持续写盘，Player.log 更小，排查问题也轻松多了。
+[*]刷新更轻：原版每次 Refresh 都清空并重建全部 6 个槽位；本版只在真正需要时重建一次，反射成员也改为启动时查找一次并缓存，减少重复开销。
+[*]视觉不变：所有武器仍显示 6 个配件槽（白点 = 已装，灰点 = 武器没有的槽），未搜索武器不强制显示——与原版 v1.1 一致。
+[*]有兜底：将来游戏更新改掉内部成员时，本 mod 会保持不生效并只打 1 行警告，不刷屏、不崩溃。[/list]
 
 [h2]◆ 兼容性[/h2]
 [list][*]游戏版本：逃离鸭科夫 2.3.30；其他版本未测试。
@@ -136,18 +122,11 @@ locale tag: zh-TW
 [list][*]請讓本模組排在 HarmonyLoadMod 和原版 BetterAccessoryDisplay 之後。新裝的模組預設排在最後，通常不需要手動調整。
 [*]如果手動排序，把兩個前置放在本模組上面即可。（本模組需要時也會自己載入 0Harmony.dll，作為保險。）[/list]
 
-[h2]◆ 現在看起來怎麼樣[/h2]
-[list][*]所有武器都顯示 6 個配件槽：瞄準鏡 / 槍口 / 握把 / 槍托 / 戰術 / 彈匣。
-[*]槽裡裝了配件時，內容指示器顯示為白色。
-[*]武器本身沒有的槽位也會顯示出來，用灰色標記。
-[*]還沒搜索（檢視）過的武器不顯示配件槽，和原版目前的行為一致。
-[*]沒有設定項目、沒有新介面：訂閱、啟用、重新啟動遊戲即可。[/list]
-
-[h2]◆ 本版修正了什麼[/h2]
-[list][*]日誌寫死關閉：本模組啟動只留 1 行日誌，不再按重新整理刷屏。（原版自己的一次性啟動/退出日誌共 6 行：3 行啟動 + 3 行退出；因為原版保持啟用，這些日誌仍然存在，這一側無法消除。）
-[*]反射成員改為一次解析、靜態快取，不再每次重新整理都重新查找。
-[*]槽位指示器只在需要時重建，不再每次 Refresh 都清空並重建全部 6 個。
-[*]如果將來遊戲更新改了內部成員，本模組會保持不生效並只留一條警告，不會刷屏、也不會崩潰。[/list]
+[h2]◆ 修正了什麼 · 你能得到什麼[/h2]
+[list][*]日誌刷屏歸零：原版每次槽位重新整理都寫約 48 行除錯日誌——實測一次 3 小時 23 分鐘的工作階段共 484,156 行 / 34.75 MB，佔全部日誌行數的 85.68%、體積的 89.19%。本版執行期 0 行，原版自身也只剩 3 行啟動 + 3 行退出共 6 行一次性日誌；反覆翻背包、倉庫、商店不再持續寫入磁碟，Player.log 更小，排查問題也輕鬆多了。
+[*]重新整理更輕：原版每次 Refresh 都清空並重建全部 6 個槽位；本版只在真正需要時重建一次，反射成員也改為啟動時查找一次並快取，減少重複開銷。
+[*]視覺不變：所有武器仍顯示 6 個配件槽（白點 = 已裝，灰點 = 武器沒有的槽），未搜索武器不強制顯示——與原版 v1.1 一致。
+[*]安全防護：將來遊戲更新改掉內部成員時，本模組會保持不生效並只打 1 行警告，不刷屏、不崩潰。[/list]
 
 [h2]◆ 相容性[/h2]
 [list][*]遊戲版本：逃離鴨科夫 2.3.30；其他版本未測試。
@@ -191,18 +170,11 @@ locale tag: ja
 [list][*]本MODは HarmonyLoadMod とオリジナルの BetterAccessoryDisplay より後に読み込まれるようにしてください。新しくインストールしたMODは既定で最後に読み込まれるため、通常は何もする必要はありません。
 [*]手動で並べ替える場合は、2つの必須MODを本MODより上に置いてください。（必要に応じて本MOD自身が 0Harmony.dll を読み込むフォールバックもあります。）[/list]
 
-[h2]◆ 表示について[/h2]
-[list][*]すべての武器に6つのアタッチメントスロットが表示されます：スコープ / マズル / グリップ / ストック / タクティカル / マガジン。
-[*]アタッチメントが付いているスロットの内容インジケーターは白になります。
-[*]武器本来持っていないスロットも表示され、灰色で示されます。
-[*]まだ未捜索（未確認）の武器にはスロットを表示しません。オリジナルの現在の挙動と同じです。
-[*]設定項目も新しいUIもありません。サブスクライブして有効にし、ゲームを再起動するだけです。[/list]
-
-[h2]◆ 修正内容[/h2]
-[list][*]ログを完全にオフ：本MODの起動ログは1行だけで、更新ごとの出力はありません。（オリジナル自身の起動・終了ログは合計6行（起動3行＋終了3行）で、有効のままなので残ります。こちらからは消せません。）
-[*]リフレクションで取得していたメンバーは一度だけ解決して静的キャッシュに保存します。更新のたびに探し直すことはありません。
-[*]スロットインジケーターは必要なときだけ再構築します。Refresh のたびに全6個を解放して作り直すことはありません。
-[*]将来のゲーム更新で内部メンバーが変わった場合は、本MODは無効のまま警告を1行だけ出します。連続出力もクラッシュもしません。[/list]
+[h2]◆ 修正されたこと · 得られるメリット[/h2]
+[list][*]ログの大量出力はゼロに：オリジナルはスロット更新のたびに約48行のデバッグログを書き出していました。実測した3時間23分のセッションでは 484,156 行 / 34.75 MB、全ログ行の 85.68%、サイズの 89.19% を占めていました。本MODはプレイ中の出力が0行で、オリジナル自身も起動3行＋終了3行の合計6行（一度きり）だけになります。バックパックや倉庫、ショップを行き来しても書き込みが続かないので、Player.log は小さく、問題の切り分けもずっと楽になります。
+[*]更新処理が軽く：オリジナルは Refresh のたびに6つのスロット表示をすべて破棄して作り直していました。本MODは本当に必要なときだけ再構築し、リフレクションで取得するメンバーも起動時に一度だけ解決してキャッシュするため、無駄な処理が減ります。
+[*]見た目はそのまま：すべての武器に6つのアタッチメントスロットが表示され（白い点＝装着済み、灰色の点＝武器にないスロット）、未捜索の武器には表示されません。オリジナル v1.1 と同じです。
+[*]万一の備え：将来のゲーム更新で内部メンバーが変わった場合は、本MODは無効のまま警告を1行だけ出します。連続出力もクラッシュもありません。[/list]
 
 [h2]◆ 互換性[/h2]
 [list][*]ゲームバージョン：Escape from Duckov 2.3.30。他のバージョンでは未テストです。
@@ -246,18 +218,11 @@ locale tag: ko
 [list][*]이 모드는 HarmonyLoadMod와 원본 BetterAccessoryDisplay보다 뒤에 로드되어야 합니다. 새로 설치한 모드는 기본적으로 맨 마지막에 로드되므로 보통은 따로 할 일이 없습니다.
 [*]수동으로 정렬한다면 두 필수 모드를 이 모드 위에 두세요. (필요하면 이 모드가 0Harmony.dll을 직접 불러오는 안전장치도 있습니다.)[/list]
 
-[h2]◆ 표시 방식[/h2]
-[list][*]모든 무기에 6개 부착물 슬롯이 표시됩니다: 스코프 / 총구 / 그립 / 개머리판 / 전술 / 탄창.
-[*]부품이 장착된 슬롯의 내용 표시기는 흰색으로 표시됩니다.
-[*]무기 자체에 없는 슬롯도 표시되며 회색으로 구분됩니다.
-[*]아직 조사(검색)하지 않은 무기에는 슬롯이 표시되지 않습니다. 원본의 현재 동작과 같습니다.
-[*]설정 항목도, 새 UI도 없습니다. 구독하고 활성화한 뒤 게임을 재시작하면 됩니다.[/list]
-
-[h2]◆ 수정 내용[/h2]
-[list][*]로그를 완전히 끔: 이 모드의 시작 로그는 1줄뿐이고, 갱신할 때마다 출력하지 않습니다. (원본 자체의 일회성 시작·종료 로그는 총 6줄(시작 3줄 + 종료 3줄)이며, 원본이 활성 상태라 남습니다. 이쪽에서는 지울 수 없습니다.)
-[*]리플렉션으로 찾던 멤버는 한 번만 확인해 정적 캐시에 저장합니다. 갱신마다 다시 찾지 않습니다.
-[*]슬롯 표시기는 필요할 때만 다시 만듭니다. Refresh마다 6개를 모두 해제하고 새로 만들지 않습니다.
-[*]나중에 게임 업데이트로 내부 멤버가 바뀌면 이 모드는 비활성 상태로 경고 1줄만 남깁니다. 폭주하거나 튕기지 않습니다.[/list]
+[h2]◆ 수정된 것 · 얻을 수 있는 것[/h2]
+[list][*]로그 폭주 제로: 원본은 슬롯이 갱신될 때마다 약 48줄의 디버그 로그를 기록했습니다. 실제로 측정한 3시간 23분 세션에서 484,156줄 / 34.75 MB로 전체 로그 줄의 85.68%, 용량의 89.19%를 차지했습니다. 이 버전은 플레이 중 0줄을 기록하며, 원본 자체도 시작 3줄 + 종료 3줄, 총 6줄의 일회성 로그만 남습니다. 가방·창고·상점을 오가도 계속 디스크에 쓰지 않으니 Player.log가 작아지고 문제를 찾기도 훨씬 쉬워집니다.
+[*]갱신 부담 감소: 원본은 Refresh마다 6개 슬롯 표시를 모두 지우고 다시 만들었습니다. 이 버전은 정말 필요할 때만 다시 만들고, 리플렉션 멤버도 시작할 때 한 번 찾아 캐시해 두어 반복 작업이 줄어듭니다.
+[*]화면은 그대로: 모든 무기에 6개의 부착물 슬롯이 표시되고(흰 점 = 장착됨, 회색 점 = 무기에 없는 슬롯), 아직 조사하지 않은 무기에는 표시되지 않습니다. 원본 v1.1과 동일합니다.
+[*]안전장치: 나중에 게임 업데이트로 내부 멤버가 바뀌면 이 모드는 비활성 상태로 경고 1줄만 남깁니다. 폭주도, 튕김도 없습니다.[/list]
 
 [h2]◆ 호환성[/h2]
 [list][*]게임 버전: Escape from Duckov 2.3.30. 다른 버전은 테스트하지 않았습니다.
@@ -301,18 +266,11 @@ Ce mod conserve exactement le même rendu, mais avec un code propre. C'est une c
 [list][*]Chargez ce mod après HarmonyLoadMod et après l'original BetterAccessoryDisplay. Un mod fraîchement installé se charge en dernier par défaut : en général, rien à faire.
 [*]Si vous triez à la main, gardez les deux prérequis au-dessus de ce mod. (Par sécurité, ce mod charge aussi 0Harmony.dll lui-même si nécessaire.)[/list]
 
-[h2]◆ Ce que vous verrez[/h2]
-[list][*]Toutes les armes affichent six emplacements : lunette / bouche / poignée / crosse / tactique / chargeur.
-[*]Un emplacement occupé par un accessoire affiche un indicateur blanc.
-[*]Les emplacements que l'arme ne possède pas sont quand même affichés, en gris.
-[*]Les armes pas encore inspectées n'affichent pas leurs emplacements, comme dans la version actuelle de l'original.
-[*]Aucun réglage, aucune interface en plus : abonnez-vous, activez, redémarrez le jeu.[/list]
-
-[h2]◆ Ce que corrige cette version[/h2]
-[list][*]Logs désactivés : une seule ligne au démarrage, plus rien à chaque rafraîchissement. (Les 6 lignes ponctuelles de l'original — 3 au démarrage, 3 à la fermeture — restent, puisqu'il reste activé ; impossible de les retirer de ce côté.)
-[*]Les membres obtenus par réflexion sont résolus une fois puis mis en cache, au lieu d'être recherchés à chaque rafraîchissement.
-[*]Les indicateurs d'emplacement ne sont reconstruits que si nécessaire, au lieu d'être tous libérés et recréés à chaque Refresh.
-[*]Si une future mise à jour du jeu renomme les membres internes, le mod reste inactif avec un seul avertissement, sans spam ni crash.[/list]
+[h2]◆ Ce qui est corrigé · Ce que vous y gagnez[/h2]
+[list][*]Plus aucun spam de logs : l'original écrivait environ 48 lignes de debug à chaque rafraîchissement d'emplacement — sur une session mesurée de 3 h 23, cela faisait 484 156 lignes / 34,75 Mo, soit 85,68 % des lignes et 89,19 % du volume du journal. Cette version n'écrit aucune ligne pendant le jeu, et l'original lui-même n'apporte plus que ses 6 lignes ponctuelles (3 au démarrage + 3 à la fermeture). Naviguer dans le sac, le stockage ou les boutiques n'écrit plus en continu sur le disque : Player.log reste petit et bien plus facile à diagnostiquer.
+[*]Rafraîchissements plus légers : l'original vidait et reconstruisait les six indicateurs d'emplacement à chaque Refresh. Cette version ne reconstruit que lorsque c'est vraiment nécessaire, et les membres obtenus par réflexion sont résolus une fois au démarrage puis mis en cache, ce qui supprime le travail répété.
+[*]Visuel inchangé : toutes les armes affichent toujours six emplacements d'accessoires (point blanc = accessoire installé, point gris = emplacement absent de l'arme), et les armes non inspectées n'affichent rien — identique à l'original v1.1.
+[*]Filet de sécurité : si une future mise à jour du jeu modifie les membres internes, le mod reste inactif et n'affiche qu'un seul avertissement — pas de spam, pas de crash.[/list]
 
 [h2]◆ Compatibilité[/h2]
 [list][*]Version du jeu : Escape from Duckov 2.3.30. Autres versions non testées.
@@ -356,18 +314,11 @@ Dieser Mod behält das exakt gleiche Aussehen, verwendet aber sauberen Code. Es 
 [list][*]Dieser Mod muss nach HarmonyLoadMod und nach dem Original BetterAccessoryDisplay geladen werden. Neu installierte Mods werden standardmäßig zuletzt geladen – meist ist nichts zu tun.
 [*]Bei manueller Sortierung beide Voraussetzungen über diesem Mod lassen. (Zur Sicherheit lädt dieser Mod bei Bedarf auch selbst 0Harmony.dll.)[/list]
 
-[h2]◆ So sieht es aus[/h2]
-[list][*]Alle Waffen zeigen sechs Zubehör-Slots: Zielfernrohr / Mündung / Griff / Schaft / Taktik / Magazin.
-[*]Ein belegter Slot erhält eine weiße Inhaltsanzeige.
-[*]Slots, die die Waffe nicht besitzt, werden trotzdem angezeigt – in Grau.
-[*]Noch nicht untersuchte Waffen zeigen keine Slots, wie beim Original in der aktuellen Version.
-[*]Keine Einstellungen, keine zusätzliche Oberfläche: abonnieren, aktivieren, Spiel neu starten.[/list]
-
-[h2]◆ Was die Korrektur ändert[/h2]
-[list][*]Logs fest aus: nur eine Startzeile, sonst nichts pro Refresh. (Die 6 einmaligen Zeilen des Originals – 3 beim Start, 3 beim Beenden – bleiben, weil es aktiviert bleibt; von dieser Seite sind sie nicht entfernbar.)
-[*]Reflexions-Member werden einmal ermittelt und statisch zwischengespeichert statt bei jedem Refresh neu gesucht.
-[*]Slot-Indikatoren werden nur bei Bedarf neu aufgebaut, statt bei jedem Refresh alle sechs freizugeben und neu zu erzeugen.
-[*]Falls ein künftiges Spielupdate interne Member umbenennt, bleibt der Mod inaktiv und meldet nur eine Warnung – kein Spam, kein Absturz.[/list]
+[h2]◆ Was behoben ist · Was Sie davon haben[/h2]
+[list][*]Kein Log-Spam mehr: Das Original schrieb bei jedem Slot-Refresh etwa 48 Debug-Zeilen — in einer gemessenen Sitzung von 3 Std. 23 Min. waren das 484.156 Zeilen / 34,75 MB, also 85,68 % aller Logzeilen und 89,19 % des Logvolumens. Diese Version schreibt im Spiel 0 Zeilen, und das Original selbst liefert nur noch seine 6 einmaligen Zeilen (3 beim Start + 3 beim Beenden). Wer Rucksack, Lager oder Läden durchsucht, löst keine fortlaufenden Schreibvorgänge mehr aus: Player.log bleibt klein und lässt sich viel leichter auswerten.
+[*]Leichtere Refreshes: Das Original leerte und erzeugte bei jedem Refresh alle sechs Slot-Indikatoren neu. Diese Version baut sie nur noch auf, wenn es wirklich nötig ist, und Reflexions-Member werden beim Start einmal ermittelt und zwischengespeichert — die wiederholte Arbeit entfällt.
+[*]Optik unverändert: Alle Waffen zeigen weiterhin sechs Zubehör-Slots (weißer Punkt = Zubehör montiert, grauer Punkt = Slot, den die Waffe nicht hat), und noch nicht untersuchte Waffen zeigen keine Slots — identisch zum Original v1.1.
+[*]Absicherung: Falls ein künftiges Spielupdate die internen Member ändert, bleibt der Mod inaktiv und schreibt nur eine Warnzeile — kein Spam, kein Absturz.[/list]
 
 [h2]◆ Kompatibilität[/h2]
 [list][*]Spielversion: Escape from Duckov 2.3.30. Andere Versionen ungetestet.
@@ -411,18 +362,11 @@ Este mod mantiene exactamente el mismo aspecto, pero con código limpio. Es una 
 [list][*]Carga este mod después de HarmonyLoadMod y del original BetterAccessoryDisplay. Un mod recién instalado se carga al final por defecto, así que normalmente no hay que hacer nada.
 [*]Si ordenas manualmente, deja los dos requisitos por encima de este mod. (Como red de seguridad, este mod también carga 0Harmony.dll por sí mismo si hace falta.)[/list]
 
-[h2]◆ Qué verás[/h2]
-[list][*]Todas las armas muestran seis espacios: mira / boca / empuñadura / culata / táctico / cargador.
-[*]Los espacios con un accesorio colocado muestran un indicador blanco.
-[*]Los espacios que el arma no tiene se muestran igualmente, en gris.
-[*]Las armas aún no inspeccionadas no muestran sus espacios, como en el comportamiento actual del original.
-[*]Sin ajustes ni interfaz extra: suscríbete, actívalo y reinicia el juego.[/list]
-
-[h2]◆ Qué corrige esta versión[/h2]
-[list][*]Registros desactivados: una sola línea al iniciar y ninguna por refresco. (Las 6 líneas puntuales del original — 3 de inicio y 3 de cierre — permanecen porque sigue activado; no se pueden quitar desde este lado.)
-[*]Los miembros obtenidos por reflexión se resuelven una vez y se guardan en caché, en lugar de buscarse en cada refresco.
-[*]Los indicadores de espacio se reconstruyen solo cuando hace falta, en vez de liberar y recrear los seis en cada Refresh.
-[*]Si una futura actualización del juego cambia los miembros internos, el mod queda inactivo con un solo aviso, sin exceso de registros ni cuelgues.[/list]
+[h2]◆ Qué se corrige · Qué ganas[/h2]
+[list][*]Se acabó el spam de registros: el original escribía unas 48 líneas de depuración en cada refresco de espacio — en una sesión medida de 3 h 23 min eran 484.156 líneas / 34,75 MB, el 85,68 % de las líneas y el 89,19 % del tamaño del registro. Esta versión escribe 0 líneas durante el juego, y el original solo aporta ya sus 6 líneas puntuales (3 de inicio + 3 de cierre). Revisar la mochila, el almacén o las tiendas ya no genera escrituras continuas en disco: Player.log queda pequeño y es mucho más fácil diagnosticar.
+[*]Refrescos más ligeros: el original vaciaba y reconstruía los seis indicadores de espacio en cada Refresh. Esta versión solo reconstruye cuando hace falta de verdad, y los miembros obtenidos por reflexión se resuelven una vez al iniciar y se guardan en caché, eliminando el trabajo repetido.
+[*]Aspecto sin cambios: todas las armas siguen mostrando seis espacios de accesorios (punto blanco = accesorio instalado, punto gris = espacio que el arma no tiene), y las armas no inspeccionadas no muestran nada — igual que el original v1.1.
+[*]Red de seguridad: si una futura actualización del juego cambia los miembros internos, el mod queda inactivo y solo escribe un aviso — sin spam ni cuelgues.[/list]
 
 [h2]◆ Compatibilidad[/h2]
 [list][*]Versión del juego: Escape from Duckov 2.3.30. Otras versiones sin probar.
@@ -466,18 +410,11 @@ Este mod mantém exatamente a mesma aparência, mas com código limpo. É uma co
 [list][*]Carregue este mod depois do HarmonyLoadMod e do original BetterAccessoryDisplay. Um mod recém-instalado carrega por último por padrão, então normalmente não há nada a fazer.
 [*]Se você ordenar manualmente, mantenha os dois requisitos acima deste mod. (Como segurança, este mod também carrega o 0Harmony.dll sozinho quando necessário.)[/list]
 
-[h2]◆ O que você vai ver[/h2]
-[list][*]Todas as armas mostram seis espaços: mira / boca / empunhadura / coronha / tático / carregador.
-[*]Os espaços com um acessório equipado mostram um indicador branco.
-[*]Os espaços que a arma não tem continuam aparecendo, em cinza.
-[*]As armas ainda não inspecionadas não mostram os espaços, como no comportamento atual do original.
-[*]Sem configurações e sem interface extra: inscreva-se, ative e reinicie o jogo.[/list]
-
-[h2]◆ O que esta correção muda[/h2]
-[list][*]Logs desligados: uma única linha na inicialização e nada a cada atualização. (As 6 linhas pontuais do original — 3 na inicialização e 3 no encerramento — continuam, porque ele fica ativado; não dá para removê-las deste lado.)
-[*]Os membros obtidos por reflexão são resolvidos uma vez e armazenados em cache, em vez de procurados a cada atualização.
-[*]Os indicadores de espaço são recriados só quando necessário, em vez de liberar e recriar os seis a cada Refresh.
-[*]Se uma futura atualização do jogo mudar os membros internos, o mod fica inativo com um único aviso, sem excesso de logs nem travamentos.[/list]
+[h2]◆ O que foi corrigido · O que você ganha[/h2]
+[list][*]Fim do excesso de logs: o original gravava cerca de 48 linhas de depuração a cada atualização dos espaços — numa sessão medida de 3 h 23 min, eram 484.156 linhas / 34,75 MB, 85,68% das linhas e 89,19% do tamanho do log. Esta versão grava 0 linhas durante o jogo, e o original passa a contribuir apenas com as suas 6 linhas pontuais (3 na inicialização + 3 no encerramento). Abrir a mochila, o armazém ou as lojas não gera mais gravações contínuas em disco: o Player.log fica pequeno e bem mais fácil de diagnosticar.
+[*]Atualizações mais leves: o original liberava e recriava os seis indicadores de espaço a cada Refresh. Esta versão só recria quando é realmente necessário, e os membros obtidos por reflexão são resolvidos uma vez na inicialização e ficam em cache, eliminando trabalho repetido.
+[*]Visual igual: todas as armas continuam mostrando seis espaços de acessórios (ponto branco = acessório instalado, ponto cinza = espaço que a arma não tem), e armas ainda não inspecionadas não mostram nada — igual ao original v1.1.
+[*]Proteção: se uma futura atualização do jogo mudar os membros internos, o mod fica inativo e registra apenas um aviso — sem excesso de logs e sem travamentos.[/list]
 
 [h2]◆ Compatibilidade[/h2]
 [list][*]Versão do jogo: Escape from Duckov 2.3.30. Outras versões não testadas.
@@ -507,49 +444,40 @@ locale tag: ru
 [h1]Отображение аксессуаров оружия · Исправленная версия[/h1]
 [b]Независимая исправленная версия оригинального мода Better Accessory Display: те же 6 слотов, но без потока логов. Оригинал остаётся установленным и включённым.[/b]
 
-Оригинальный мод «Better Accessory Display» (更好的配件展示, Workshop 3596581923) принудительно показывает у всего оружия в Escape from Duckov все шесть слотов для аксессуаров — так удобнее сравнивать и менять обвес. Сама функция полезная, а проблема в отладочных логах: они жёстко включены в коде и не отключаются, и при каждом обновлении слотов в Player.log пишутся примерно 48 строк. На замере сессии длиной 3 ч 23 мин это дало 484 156 строк / 34,75 МБ — 85,68 % всех строк и 89,19 % объёма лога, с пиками около 216 строк в секунду. 172 327 из этих строк приходились на мёртвую ветку («SlotIndicator.Target is null») и были чистым шумом.
-
-Этот мод сохраняет точно такой же внешний вид, но реализован чистым кодом. Это независимое исправление, а не публикация автора оригинала.
+Оригинал «Better Accessory Display» (更好的配件展示, Workshop 3596581923) принудительно показывает у всего оружия в Escape from Duckov все шесть слотов аксессуаров. Проблема — отладочные логи: они жёстко включены, и при каждом обновлении слотов в Player.log пишутся ~48 строк. За сессию 3 ч 23 мин это дало 484 156 строк / 34,75 МБ: 85,68 % всех строк и 89,19 % объёма лога. Эта версия сохраняет внешний вид, но реализована чистым кодом; это независимое исправление, а не публикация автора оригинала.
 
 [h2]◆ Требования (оба — обязательные предметы)[/h2]
-[list][*]HarmonyLoadMod (3589088839) — предоставляет среду Harmony (0Harmony.dll).
+[list][*]HarmonyLoadMod (3589088839) — среда Harmony (0Harmony.dll).
 [*]Оригинальный BetterAccessoryDisplay (3596581923) — должен оставаться установленным и включённым.
-[*]Ни один из них не входит в этот мод. Файлы, упоминание и количество загрузок оригинала остаются у его автора.
-[*]Оригинал должен оставаться включённым: этот мод при запуске снимает его патчи Harmony и сам отвечает за отображение. То, что оригинал в списке модов выглядит включённым, — это задумано.[/list]
+[*]Ничего из этого не входит в мод; файлы, упоминание и загрузки оригинала остаются у его автора.
+[*]Оригинал должен быть включён: мод снимает его патчи Harmony при запуске и сам отвечает за отображение. Включённый оригинал в списке модов — это задумано.[/list]
 
 [h2]◆ Порядок загрузки[/h2]
-[list][*]Загружайте этот мод после HarmonyLoadMod и после оригинального BetterAccessoryDisplay. Только что установленный мод по умолчанию загружается последним, так что обычно ничего делать не нужно.
-[*]При ручной сортировке оставьте оба обязательных мода выше этого. (Для надёжности этот мод при необходимости сам загружает 0Harmony.dll.)[/list]
+[list][*]Загружайте мод после HarmonyLoadMod и оригинального BetterAccessoryDisplay. Новые моды по умолчанию загружаются последними, так что обычно ничего делать не нужно.
+[*]При ручной сортировке оставьте оба обязательных мода выше. (При необходимости мод сам загружает 0Harmony.dll.)[/list]
 
-[h2]◆ Как это выглядит[/h2]
-[list][*]У всего оружия показываются шесть слотов: прицел / дуло / рукоятка / приклад / тактика / магазин.
-[*]Слот с установленным аксессуаром получает белый индикатор содержимого.
-[*]Слоты, которых у оружия нет, всё равно показываются и помечаются серым.
-[*]У ещё не осмотренных (непроинспектированных) единиц оружия слоты не показываются — как в текущем поведении оригинала.
-[*]Никаких настроек и нового интерфейса: подписаться, включить, перезапустить игру.[/list]
-
-[h2]◆ Что исправлено[/h2]
-[list][*]Логи жёстко выключены: одна строка при запуске и ничего при каждом обновлении. (Собственные одноразовые 6 строк оригинала — 3 при запуске и 3 при выходе — остаются, потому что он включён; с этой стороны их не убрать.)
-[*]Члены, получаемые через рефлексию, определяются один раз и кешируются статически, а не ищутся при каждом обновлении.
-[*]Индикаторы слотов пересоздаются только при необходимости, а не освобождаются и создаются заново все шесть при каждом Refresh.
-[*]Если будущее обновление игры переименует внутренние члены, мод останется неактивным и выведет только одно предупреждение — без спама и падений.[/list]
+[h2]◆ Что исправлено · Что вы получаете[/h2]
+[list][*]Поток логов исчез: 48 строк на каждое обновление и 484 156 строк / 34,75 МБ за сессию 3 ч 23 мин (85,68 % строк, 89,19 % объёма) — теперь 0 строк во время игры, а у оригинала остаются только 6 одноразовых строк (3 при запуске + 3 при выходе). Рюкзак, склад и магазины больше не пишут на диск постоянно — Player.log меньше и проще для диагностики.
+[*]Обновления легче: оригинал при каждом Refresh очищал и создавал заново все 6 индикаторов слотов — теперь пересоздание только при необходимости, а члены рефлексии определяются один раз при запуске и кешируются.
+[*]Вид прежний: 6 слотов у всего оружия (белая точка — аксессуар установлен, серая — слота у оружия нет), у неосмотренных единиц слоты не показываются; как в оригинале v1.1.
+[*]Подстраховка: если обновление игры изменит внутренние члены, мод останется неактивным и выведет одно предупреждение — без спама и падений.[/list]
 
 [h2]◆ Совместимость[/h2]
-[list][*]Версия игры: Escape from Duckov 2.3.30. Другие версии не проверялись.
-[*]Всё работает во время выполнения: файлы игры, ресурсы и сохранения не изменяются.
-[*]Реальный тест 2026-10-28 в окружении автора со всеми 72 модами, 32 минуты: эта исправленная версия записала только одну строку при запуске, оригинал — 0 строк на обновление, ошибок, связанных с этим модом, не было. В окружении также были FixSlotDisplay, PluggableIndicator, ItemLevelAndSearchSoundMod и CustomItemLevelValue; для модов, которые не проверялись отдельным A/B-тестом, ориентир — фактическое поведение.
-[*]Отключать или удалять безопасно: мод снимает только свои патчи. О состоянии оригинала см. «Известные ограничения».[/list]
+[list][*]Игра: Escape from Duckov 2.3.30 (проверено); другие версии не тестировались.
+[*]Только во время выполнения: файлы, ресурсы и сохранения не изменяются.
+[*]Тест 2026-10-28 в окружении автора со всеми 72 модами, 32 минуты: 1 строка запуска, 0 строк на обновление, ошибок нет. В окружении также были FixSlotDisplay, PluggableIndicator, ItemLevelAndSearchSoundMod и CustomItemLevelValue; для модов без отдельного A/B-теста ориентир — фактическое поведение.
+[*]Отключать и удалять безопасно: мод снимает только свои патчи. Состояние оригинала — в «Известных ограничениях».[/list]
 
 [h2]◆ Известные ограничения[/h2]
-[list][*]Пока оригинал включён, его собственные одноразовые 6 строк (3 при запуске и 3 при выходе) остаются в Player.log; остальной его вывод заглушен.
-[*]Если отключить этот мод внутри игры, патчи оригинала не восстановятся автоматически; перезапустите игру, чтобы вернуть прежнее поведение.
-[*]Мод влияет только на отображение и не меняет игровые значения или прогресс.[/list]
+[list][*]При включённом оригинале его 6 одноразовых строк (3 при запуске + 3 при выходе) остаются в Player.log; остальной вывод заглушен.
+[*]Если отключить мод в игре, патчи оригинала сами не вернутся — перезапустите игру.
+[*]Мод влияет только на отображение, игровые значения не меняются.[/list]
 
 [h2]◆ История изменений[/h2]
-[list][*]1.0.0 — первый публичный выпуск: независимая чистая реализация; внешний вид с 6 слотами сохранён; отладочные логи выключены (одна строка при запуске); члены рефлексии кешируются; слоты пересоздаются только при необходимости.[/list]
+[list][*]1.0.0 — первый публичный выпуск: чистая независимая реализация, прежний вид 6 слотов, отладочные логи выключены (1 строка запуска), кеш рефлексии, пересоздание слотов по необходимости.[/list]
 
 [h2]◆ Благодарности и лицензия[/h2]
-[list][*]Оригинальный мод «更好的配件展示 / Better Accessory Display» — 我是火柴人 / chardexn — https://github.com/Chardexn/BetterAccessoryDisplay
-[*]Оригинал распространяется по лицензии MIT. Эта исправленная версия независима: она выпущена не автором оригинала и не содержит его файлов. Упоминание и загрузки оригинала принадлежат его автору.
+[list][*]Оригинал «更好的配件展示 / Better Accessory Display» — 我是火柴人 / chardexn: https://github.com/Chardexn/BetterAccessoryDisplay
+[*]Оригинал под лицензией MIT. Это независимое исправление: не публикация автора оригинала, файлов оригинала здесь нет; упоминание и загрузки принадлежат автору.
 [*]Исправленная версия: Dorei Hime, лицензия MIT.[/list]
 ```

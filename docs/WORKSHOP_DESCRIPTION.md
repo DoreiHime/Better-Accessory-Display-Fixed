@@ -15,18 +15,11 @@ This mod keeps exactly the same look and re-implements the feature with clean co
 [list][*]Load this mod after HarmonyLoadMod and after the original BetterAccessoryDisplay. A freshly installed mod loads last by default, so usually there is nothing to do.
 [*]If you sort mods manually, keep both required mods above this one. (As a safety net, this mod also loads 0Harmony.dll by itself when needed.)[/list]
 
-[h2]◆ What you see[/h2]
-[list][*]Every weapon shows all six attachment slots: Scope / Muzzle / Grip / Stock / Tec / Mag.
-[*]A slot with an attachment installed shows a white content indicator.
-[*]Slots the weapon does not have are still shown, marked gray.
-[*]Weapons you have not inspected yet keep their slots hidden, same as the original's current behaviour.
-[*]No settings and no extra UI: subscribe, enable, restart the game and you are done.[/list]
-
-[h2]◆ What this fix changes[/h2]
-[list][*]Logging is hard-off: one startup line from this mod, nothing per refresh. (The original's own 6 one-time lines — 3 at startup, 3 at shutdown — remain because it stays enabled; they cannot be removed from this side.)
-[*]Reflection members that the original looked up on every refresh are resolved once and cached statically.
-[*]Slot indicators are rebuilt only when they actually need to be, instead of releasing and recreating all six on every Refresh.
-[*]If a future game update changes the internal members, the mod stays inactive and prints a single warning — no spam, no crash.[/list]
+[h2]◆ What's fixed · What you get[/h2]
+[list][*]Log spam is gone: the original wrote about 48 debug lines on every slot refresh — one measured 3 h 23 min session reached 484,156 lines / 34.75 MB, 85.68% of all log lines and 89.19% of the log size. This version writes 0 lines while playing, and the original itself now only contributes its 6 one-time lines (3 at startup + 3 at shutdown). Browsing the backpack, storage or shops no longer keeps writing to disk, so Player.log stays small and much easier to diagnose.
+[*]Lighter refreshes: the original cleared and rebuilt all six slot indicators on every Refresh. This version rebuilds only when it actually has to, and reflection members are looked up once at startup and cached — the repeated work is gone.
+[*]Same visuals: every weapon still shows six attachment slots (white dot = attachment installed, gray dot = a slot the weapon does not have), and uninspected weapons still show no slots — identical to the original v1.1.
+[*]A safety net: if a future game update changes the internal members, this mod simply stays inactive and logs one warning — no spam, no crash.[/list]
 
 [h2]◆ Compatibility[/h2]
 [list][*]Game version: Escape from Duckov 2.3.30. Other versions are untested.

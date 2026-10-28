@@ -10,6 +10,7 @@
 |---|---|
 | 显示名（暂定） | 更好的配件展示 · 修复版 \| Better Accessory Display (Fixed) |
 | 工坊标题（en / zh-CN） | Better Accessory Display · Fixed / 更好的配件展示 · 修复版（其余 8 语种见工坊文案文件） |
+| Steam 工坊 | [3828601227](https://steamcommunity.com/sharedfiles/filedetails/?id=3828601227)（2026-10-28 发布） |
 | 内部名 / 工坊目录 | `BetterAccessoryDisplayFixed` |
 | 版本 | **1.0.0**（首个公开版本） |
 | 适配游戏 | Escape from Duckov **2.3.30**（Steam appid 3167020） |
@@ -142,7 +143,7 @@
 | `preview.png` | 工坊预览图 512×512（原版封面 + 左上角「修复版 / FIXED」角标，232,684 bytes） |
 | `LICENSE.txt` | MIT 许可 + 原版署名/来源说明 + 预览图来源说明（2,566 bytes） |
 
-- 整个发布包 4 个文件 / 259,838 bytes；不包含：原版 mod 的任何文件、`0Harmony.dll`、本地调试符号。
+- 整个发布包 4 个文件 / 259,873 bytes；不包含：原版 mod 的任何文件、`0Harmony.dll`、本地调试符号。
 
 ## 8. 致谢与许可
 

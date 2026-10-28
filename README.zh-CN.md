@@ -39,7 +39,7 @@
 2. 在游戏 Mods 列表里把三者都启用（原版必须保持启用）；
 3. 重启游戏，本修复版排在两个前置之后即可。
 
-Steam 创意工坊：*随 v1.0.0 一起发布——首次上传后会把链接补到这里。*
+Steam Workshop: <https://steamcommunity.com/sharedfiles/filedetails/?id=3828601227>
 
 ## 构建
 

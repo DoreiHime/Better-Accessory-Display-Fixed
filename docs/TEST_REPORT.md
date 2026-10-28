@@ -13,6 +13,7 @@
 | 游戏语言 | 简体中文 | 实测 |
 | 被测构建 | `BetterAccessoryDisplayFixed.dll` v1.0.0，23,552 bytes，SHA256 `EDABDD0BC91F72CC422D506ED780752D878C54BF0FA4729A6EE3BF262E88BC13` | 已构建（2026-10-28） |
 | 日志路径 | `%USERPROFILE%\AppData\LocalLow\TeamSoda\Duckov\Player.log` | 已使用 |
+| 发布工坊 | [3828601227](https://steamcommunity.com/sharedfiles/filedetails/?id=3828601227)（2026-10-28 发布） | 已发布 |
 | 测试日期 / 测试方式 | 2026-10-28 10:14–10:46（首轮，32 分 14 秒）+ 10:46:41–10:57:33（重启验证轮，10 分 52 秒） | 实机 |
 | 基线来源 | ① 历史 3h23m 会话统计（`work/loadorder/log-perf.md`）；② 修复前 `Player-prev.log` 直接统计（见 §1.3） | 已实测（修复前） |
 
@@ -36,7 +37,7 @@
 | 项目 | 结果 |
 |---|---|
 | 构建环境 | .NET SDK 10.0.302，`Release`，`dotnet build` **0 warning / 0 error**（游戏 2.3.30 Managed 程序集 + HarmonyLoadMod 的 0Harmony 2.4.1 编译期引用，`Private=false`） |
-| 产物 | `dist\BetterAccessoryDisplayFixed\` 共 4 个文件 / 259,838 bytes：DLL 23,552 B、info.ini 1,036 B、LICENSE.txt 2,566 B、preview.png 232,684 B（512×512） |
+| 产物 | `dist\BetterAccessoryDisplayFixed\` 共 4 个文件 / 259,873 bytes：DLL 23,552 B、info.ini 1,071 B、LICENSE.txt 2,566 B、preview.png 232,684 B（512×512） |
 | 静态校验 `verify-badfixed.ps1` | 通过：入口类型 `BetterAccessoryDisplayFixed.ModBehaviour` 存在且继承 `Duckov.Modding.ModBehaviour`；程序集引用仅游戏/Unity/System 程序集 + `0Harmony`（编译期，未随包）；包内不含 `0Harmony.dll` / 原版文件 |
 | 离线冒烟（`work/badfixed-smoke`） | 通过（元数据级）：游戏 2.3.30 中 `ItemDisplay.slotIndicatorContainer`、`ItemDisplay.SlotIndicatorPool`、`SlotIndicator.contentIndicator` 三个反射成员均存在；`ItemDisplay.Setup/Refresh`、`SlotIndicator.Refresh` 三个目标方法存在；3 个 `[HarmonyPatch]` 类、4 个 patch 方法（1 prefix + 3 postfix）可被 Harmony 正确识别。真实 `PatchAll` 需游戏自带 Mono，已由实机测试覆盖。 |
 | 加载顺序（已写入） | `Mods.ES3`：HarmonyLoadMod #0 → 原版 BetterAccessoryDisplay #60 → **BetterAccessoryDisplayFixed #61** → WhereAreMyItems #62；写后回读校验通过；`Global.json` 中 `ModActive_BetterAccessoryDisplayFixed = true` |
