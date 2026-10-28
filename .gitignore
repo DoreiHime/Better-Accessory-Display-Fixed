@@ -1,0 +1,18 @@
+# Build artifacts
+bin/
+obj/
+dist/
+*.user
+*.suo
+.vs/
+.idea/
+
+# Local test workspace / logs (never published)
+work/
+backups/
+logs/
+publish.log
+*.log
+
+# Local machine configuration
+Local.props

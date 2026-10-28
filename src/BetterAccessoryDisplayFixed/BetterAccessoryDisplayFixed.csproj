@@ -1,0 +1,102 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!--
+    更好的配件展示 · 修复版 / Better Accessory Display (Fixed)
+    ============================================================
+    Standalone fix for "BetterAccessoryDisplay" (Workshop 3596581923).
+
+    The original mod stays installed AND enabled (its download count stays with the original
+    author); this mod neutralises the original's Harmony patches at runtime and re-implements
+    the exact same 6-slot visuals without the log spam / repeated reflection / repeated rebuild.
+
+    Runtime prerequisites (Workshop "Required items", not declared in info.ini):
+      * HarmonyLoadMod          3589088839   (ships 0Harmony.dll, the Harmony runtime)
+      * BetterAccessoryDisplay  3596581923   (the original mod; must stay enabled)
+
+    Neither prerequisite is shipped inside this package. The 0Harmony.dll reference below is
+    compile-time only (<Private>false</Private>): the game already loads 0Harmony.dll from the
+    required HarmonyLoadMod / original mod folder, and the mod also proactively loads it from
+    those folders at runtime if it is not loaded yet.
+
+    Requires an installed copy of "Escape from Duckov" (Steam, appid 3167020).
+    The game Managed folder can be supplied through:
+      * -p:GameManagedDir=<path>
+      * environment variable DUCKOV_MANAGED
+      * the default Steam path below
+    The Harmony runtime DLL can be supplied through:
+      * -p:HarmonyDll=<path>
+      * environment variable HARMONY_DLL
+      * the default Workshop paths below (HarmonyLoadMod, then the original mod)
+    Optional deploy target:
+      * -p:DeployDir=<path>   copies the built dll + info.ini into <path>
+  -->
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <LangVersion>9.0</LangVersion>
+    <AssemblyName>BetterAccessoryDisplayFixed</AssemblyName>
+    <RootNamespace>BetterAccessoryDisplayFixed</RootNamespace>
+    <Version>1.0.0</Version>
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
+    <FileVersion>1.0.0.0</FileVersion>
+    <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
+    <EnableDefaultCompileItems>true</EnableDefaultCompileItems>
+    <NoWarn>CS0436;CS1701;CS1702;CS0618;CS0649;CS0169;CS0414;CS0067</NoWarn>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <CopyLocalLockFileAssemblies>false</CopyLocalLockFileAssemblies>
+    <!-- No debug symbols in the shipped DLL: the portable PDB would embed local build paths. -->
+    <DebugType>none</DebugType>
+    <DebugSymbols>false</DebugSymbols>
+    <Deterministic>true</Deterministic>
+    <!-- Keep the built DLL byte-identical whether or not the project sits inside a git repo
+         (otherwise the SDK appends +<commit-sha> to AssemblyInformationalVersion). -->
+    <IncludeSourceRevisionInInformationalVersion>false</IncludeSourceRevisionInInformationalVersion>
+    <Nullable>disable</Nullable>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <_DefaultSteamManaged>C:\Program Files (x86)\Steam\steamapps\common\Escape from Duckov\Duckov_Data\Managed</_DefaultSteamManaged>
+    <GameManagedDir Condition="'$(GameManagedDir)' == '' and '$(DUCKOV_MANAGED)' != ''">$(DUCKOV_MANAGED)</GameManagedDir>
+    <GameManagedDir Condition="'$(GameManagedDir)' == '' and Exists('$(_DefaultSteamManaged)')">$(_DefaultSteamManaged)</GameManagedDir>
+
+    <_DefaultHarmony>C:\Program Files (x86)\Steam\steamapps\workshop\content\3167020\3589088839\0Harmony.dll</_DefaultHarmony>
+    <_DefaultHarmonyFallback>C:\Program Files (x86)\Steam\steamapps\workshop\content\3167020\3596581923\0Harmony.dll</_DefaultHarmonyFallback>
+    <HarmonyDll Condition="'$(HarmonyDll)' == '' and '$(HARMONY_DLL)' != ''">$(HARMONY_DLL)</HarmonyDll>
+    <HarmonyDll Condition="'$(HarmonyDll)' == '' and Exists('$(_DefaultHarmony)')">$(_DefaultHarmony)</HarmonyDll>
+    <HarmonyDll Condition="'$(HarmonyDll)' == '' and Exists('$(_DefaultHarmonyFallback)')">$(_DefaultHarmonyFallback)</HarmonyDll>
+  </PropertyGroup>
+
+  <Target Name="CheckGameAssemblies" BeforeTargets="ResolveReferences">
+    <Error Condition="'$(GameManagedDir)' == ''"
+           Text="GameManagedDir is not set. Install Escape from Duckov or pass -p:GameManagedDir=&quot;...\Duckov_Data\Managed&quot;." />
+    <Error Condition="!Exists('$(GameManagedDir)\TeamSoda.Duckov.Core.dll')"
+           Text="TeamSoda.Duckov.Core.dll was not found in '$(GameManagedDir)'. Check GameManagedDir." />
+    <Error Condition="'$(HarmonyDll)' == '' or !Exists('$(HarmonyDll)')"
+           Text="0Harmony.dll was not found. Install HarmonyLoadMod (3589088839) / BetterAccessoryDisplay (3596581923), or pass -p:HarmonyDll=&quot;...\0Harmony.dll&quot;." />
+  </Target>
+
+  <ItemGroup>
+    <!-- Unity / game runtime assemblies (never copied to the output) -->
+    <Reference Include="UnityEngine.CoreModule"><HintPath>$(GameManagedDir)\UnityEngine.CoreModule.dll</HintPath><Private>false</Private></Reference>
+    <Reference Include="UnityEngine.UIModule"><HintPath>$(GameManagedDir)\UnityEngine.UIModule.dll</HintPath><Private>false</Private></Reference>
+    <Reference Include="UnityEngine.UI"><HintPath>$(GameManagedDir)\UnityEngine.UI.dll</HintPath><Private>false</Private></Reference>
+    <Reference Include="UnityEngine.IMGUIModule"><HintPath>$(GameManagedDir)\UnityEngine.IMGUIModule.dll</HintPath><Private>false</Private></Reference>
+
+    <!-- Game assemblies -->
+    <Reference Include="TeamSoda.Duckov.Core"><HintPath>$(GameManagedDir)\TeamSoda.Duckov.Core.dll</HintPath><Private>false</Private></Reference>
+    <Reference Include="TeamSoda.Duckov.Utilities"><HintPath>$(GameManagedDir)\TeamSoda.Duckov.Utilities.dll</HintPath><Private>false</Private></Reference>
+    <Reference Include="ItemStatsSystem"><HintPath>$(GameManagedDir)\ItemStatsSystem.dll</HintPath><Private>false</Private></Reference>
+
+    <!-- Harmony runtime provided by the required HarmonyLoadMod; compile-time reference only,
+         the DLL is NEVER copied into the package. -->
+    <Reference Include="0Harmony"><HintPath>$(HarmonyDll)</HintPath><Private>false</Private></Reference>
+  </ItemGroup>
+
+  <Target Name="DeployMod" AfterTargets="Build" Condition="'$(DeployDir)' != ''">
+    <MakeDir Directories="$(DeployDir)" />
+    <Copy SourceFiles="$(TargetPath)" DestinationFolder="$(DeployDir)" SkipUnchangedFiles="true" />
+    <Copy SourceFiles="$(MSBuildThisFileDirectory)info.ini" DestinationFolder="$(DeployDir)" SkipUnchangedFiles="true" Condition="Exists('$(MSBuildThisFileDirectory)info.ini')" />
+    <Message Importance="high" Text="Deployed $(TargetFileName) -> $(DeployDir)" />
+  </Target>
+
+</Project>
