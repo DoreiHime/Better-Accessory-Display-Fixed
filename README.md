@@ -21,8 +21,7 @@ this version writes exactly **one startup line** and nothing per refresh.
   and uninspected weapons keep their slots hidden.
 - **Zero log spam** — measured on the author's install: the original produced **743,761 lines /
   55.2 MB** in a 3 h 23 min session (87.33 % of all lines, 90.56 % of the log size). After the fix,
-  a 32-minute session with all 72 mods enabled produced **6 one-time lines from the original
-  (3 startup + 3 shutdown) and 0 lines per refresh**, plus 1 startup line from this mod.
+  there are **0 log lines per refresh**, plus 1 startup line from this mod.
   The whole log went from 851,701 lines / 58.13 MB to 21,215 lines / 1.12 MB (same install).
 - **Cheaper hot path** — the `ItemDisplay.slotIndicatorContainer`, `ItemDisplay.SlotIndicatorPool`
   and `SlotIndicator.contentIndicator` reflection members are resolved once and cached statically.
@@ -95,16 +94,14 @@ LICENSE                   MIT
 NOTICE.md                 original mod attribution and licence
 ```
 
-> Test evidence paths such as `work/...` in the release notes / test report refer to the
-> author's local test workspace and are not published in this repository.
-
 ## Testing
 
 - Built with .NET SDK 10.0.302, `Release`, 0 warnings / 0 errors; static verification passed.
-- In-game (2026-10-28): two sessions — 32 min 14 s with all 72 mods of the author's install
-  enabled, then a 10 min 52 s restart-verification session.
-- Result: original mod still enabled and neutralised, **0 per-refresh log lines**, 1 startup line
-  from this mod, no errors from this mod, visuals identical to v1.1 (see `docs/TEST_REPORT.md`).
+- Verified in-game on game 2.3.30: a full gameplay session plus a restart check, and a final
+  check of the Workshop copy after publishing.
+- Result: the original mod stays enabled and is neutralised at runtime, **0 per-refresh log lines**,
+  this fix logs 1 startup line and raises no errors; visuals match the original v1.1
+  (see `docs/TEST_REPORT.md`).
 
 ## Credits & licence
 
