@@ -167,7 +167,18 @@
 - **P1 共存**：与 FixSlotDisplay / PluggableIndicator / ItemLevelAndSearchSoundMod / CustomItemLevelValue 全开实机无异常 → **通过**；
 - **P1 日志量**：总行数 -84.3%、总体积 -87.8%，原版刷屏 -99.995% → **通过（达到降 80%+ 目标）**。
 
-**最终结论：通过。** 首轮 32.2 分钟完整会话 + 10.9 分钟重启验证轮均符合验收标准；未覆盖项（T07/T10/T17/T18、S04/S06）已标注，不影响 P0 结论。
+**最终结论：通过。** 首轮 32.2 分钟完整会话 + 10.9 分钟重启验证轮 + 发布后工坊副本加载验证均符合验收标准；未覆盖项（T07/T10/T17/T18、S04/S06）已标注，不影响 P0 结论。
+
+### 3.5 发布后：工坊副本加载验证（2026-10-28 11:18–11:19）
+
+| 步骤 | 结果 |
+|---|---|
+| 订阅工坊条目 | Steam 已把 [3828601227](https://steamcommunity.com/sharedfiles/filedetails/?id=3828601227) 下载到 `workshop\content\3167020\3828601227`（4 个文件：DLL 23,552 / info.ini 1,071 / LICENSE 2,566 / preview 232,684） |
+| 删除本地测试副本后启动 | 日志：`Loading mod dll at path: ...\workshop\content\3167020\3828601227\BetterAccessoryDisplayFixed.dll` → `Mod Loaded: BetterAccessoryDisplayFixed`；本 mod 输出 1 行 ready |
+| 加载顺序 | `BetterAccessoryDisplay #60 → BetterAccessoryDisplayFixed #61`（`Mods.ES3` 73 条，与计划一致；改写前备份 `Saves\Mods.ES3.leadbackup-20261028-111812`） |
+| 日志 | 会话 3,924 行 / 251,011 bytes；`[更好的配件展示]` 共 6 行（3 启动 + 3 退出，运行期 0）；本 mod 1 行；无本 mod 异常 |
+
+> 结论：工坊副本可正常加载、原版仍被正确中和、0 刷屏成立；本地测试副本已删除（备份 `backups\local-test-copy-20261028\`）。
 
 ## 7. 证据文件清单
 
@@ -175,6 +186,7 @@
 |---|---|
 | `work/badfixed-tools/final-session.log` | 首轮完整日志（1,173,763 B / 21,215 行） |
 | `work/badfixed-tools/final-session2.log` | 重启验证轮完整日志（316,370 B / 5,142 行） |
+| `work/badfixed-tools/final-session3-workshop-verify.log` | 发布后工坊副本加载验证日志（251,011 B / 3,924 行） |
 | `work/badfixed-tools/final-analysis.txt` / `final-analysis2.txt` | 两轮自动分析输出（monitor/breakdown/异常指纹） |
 | `work/badfixed-tools/test-live-session1.jsonl` | 每 15 秒采样曲线 |
 | `work/badfixed-tools/baseline-breakdown.json` | 修复前基线明细 |
